@@ -1,15 +1,31 @@
 #include <stdio.h>
+#include <time.h>
+
 
 int main(){
+	
+	// 현재 날짜 구하기 // 
+	struct tm* t;
+	time_t base = time(NULL);
+	t = localtime(&base);
+	printf ("Today : %d년 %d월 %d일\n ", t->tm_year + 1900, t->tm_mon+1, t->tm_mday);
+	// --- //
 	int inputTicket, inputTicketDetail, inputBirth, inputAmount, inputPremier;
 	int resultPrice, premierPrice;
 	int ageNumber, birthYear, birthDate, seventhDate, yearGap, interAge;
-	int thisYear = 2022, thisDate=0316;
+	int thisYear = t->tm_year + 1900, thisDate=316;
 	const int full_1DayPriceAdult = 59000, full_1DayPriceTeen = 52000, full_1DayPriceKids = 47000, full_1DayPriceBaby = 15000;
 	const int full_After4PriceAdult = 48000, full_After4PriceTeen = 42000, full_After4PriceKids = 36000, full_After4PriceBaby = 15000;
 	const int park_1DayPriceAdult = 56000, park_1DayPriceTeen = 50000, park_1DayPriceKids = 46000, park_1DayPriceBaby = 15000;
 	const int park_After4PriceAdult = 45000, park_After4PriceTeen = 40000, park_After4PriceKids = 35000, park_After4PriceBaby = 15000;
-		
+	char todayMonth, todayDay, today;
+	
+	todayMonth = t->tm_mon+1;
+	todayDay = t->tm_mday;
+	today = todayMonth + todayDay;
+	
+	printf("%d\n", thisYear);
+	printf("%d %d %d\n", todayMonth, todayDay, today);
 	
 	printf("티켓 종류를 입력하세요. \n 1. 종합이용권 \n 2. 파크이용권\n");
 	scanf("%d", &inputTicket);
@@ -29,7 +45,6 @@ int main(){
 	//나이 계산// 
 	ageNumber = inputBirth/100000; //주민번호 7자리를 10만으로 나누어 생년 정수형으로 변환 
 	birthDate = (inputBirth - (ageNumber*100000))/10; // (생년월일 7자리 - 정수형*10만) = (생일+주민 번호 7자리) / 10 => 생일 정수형
-	
 	
 	if (inputBirth % 5 <= 2) { //주민번호 7자리를 5로 나눈 나머지 값이 2보다 작거나 같을경우 1,2 = 1900년대 생 
 		birthYear = (inputBirth / 100000)+ 1900;
@@ -146,51 +161,57 @@ int main(){
 		resultPrice = full_1DayPriceBaby * inputAmount;
 	}
 
-	// 우대 요금 적용 //
+	// 우대 요금 적용 *동반1인은 미적용 //
 	
 	//만 65세 이상 우대 적용 불가// 
 	if (interAge >= 65) {
+		printf("65세 이상으로 베이비요금 적용\n");
 		printf("가격은 %d원 입니다.", resultPrice); 
 	}
 	
 	//우대 사항 없음// 
 	else if (inputPremier == 1) {
+		printf("우대사항 없음\n");
 		printf("가격은 %d원 입니다.", resultPrice); 
 	}
 	
 	//장애인 우대 50% // 
 	else if (inputPremier == 2) {
 		premierPrice = resultPrice * 0.5;
+		printf("장애인 우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//국가유공자 우대 50% //
 	else if (inputPremier == 3) {
 		premierPrice = resultPrice * 0.5;
+		printf("국가유공자  우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//휴가장병  우대 49% //
-	else if (inputPremier == 4) {
+	else if (inputPremier == 4 && inputTicket==1) {
 		premierPrice = resultPrice * 0.5 + 500;
+		printf("휴가장병 우대 49%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//임산부  우대 50% //
-	else if (inputPremier == 5) {
+	else if (inputPremier == 5 && inputTicket==1) {
 		premierPrice = resultPrice * 0.5;
+		printf("임산부 우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//다둥이 행복카드 우대 30% //
-	else if (inputPremier == 6) {
-		premierPrice = resultPrice * 0.3;
+	else if (inputPremier == 6 && inputTicket==1) {
+		premierPrice = resultPrice * 0.7;
+		printf("다둥이 행복카드 본인 30%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	
+	return 0;
 
-	
-	return 0; 
 	
 }
