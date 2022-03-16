@@ -30,6 +30,8 @@ int main(){
 	printf("티켓 종류를 입력하세요. \n 1. 종합이용권 \n 2. 파크이용권\n");
 	scanf("%d", &inputTicket);
 	
+	if (inputTicket ==1 || inputTicket == 2) {  //잘못 입력시 반복 넣기위함// 
+	
 	printf("세부 티켓 종류를 입력하세요. \n 1. 1Day \n 2. After4\n");
 	scanf("%d", &inputTicketDetail);	
 		
@@ -63,12 +65,13 @@ int main(){
 		interAge  = yearGap;
 	}
 	
+	/* 나이 계산 확인용 
 	printf("%d\n", ageNumber);
 	printf("%d\n", birthDate);
 	printf("%d\n", birthYear);
 	printf("%d\n", yearGap);	
-	printf("%d\n", interAge);  
-	
+	printf("%d\n", interAge);  */
+
 	// --- //
 	
 	// 티켓 값 계산 //
@@ -163,6 +166,11 @@ int main(){
 
 	// 우대 요금 적용 *동반1인은 미적용 //
 	
+	printf ("선택한 티켓 종류는 : %d\n", inputTicket);
+	printf ("선택한 세부티켓 종류는 : %d\n", inputTicketDetail);
+	printf ("나이 구분 : %d\n", interAge); 
+	printf("주문 갯수 (최대 10개)\n", &inputAmount);
+	
 	//만 65세 이상 우대 적용 불가// 
 	if (interAge >= 65) {
 		printf("65세 이상으로 베이비요금 적용\n");
@@ -209,7 +217,11 @@ int main(){
 		printf("다둥이 행복카드 본인 30%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
+}
 	
+	else {
+	printf ("다시 입력하세요\n");
+	}
 	
 	return 0;
 
