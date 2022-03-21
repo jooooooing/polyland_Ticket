@@ -12,7 +12,7 @@ int main(){
 	// --- //
 	int inputTicket, inputTicketDetail, inputBirth, inputAmount, inputPremier;
 	int resultPrice, premierPrice;
-	int ageNumber, birthYear, birthDate, seventhDate, yearGap, interAge;
+	int ageNumber, birthYear, birthDate, seventhDate, yearGap, interAge, birthMonth, birthDay;
 	int thisYear = t->tm_year + 1900, thisDate=316;
 	const int FULL_1DAYPRICEADULT = 59000, FULL_1DAYPRICETEEN = 52000, FULL_1DAYPRICEKIDS = 47000, FULL_1DAYPRICEBABY = 15000;
 	const int FULL_AFTER4PRICEADULT = 48000, FULL_AFTER4PRICETEEN = 42000, FULL_AFTER4PRICEKIDS = 36000, FULL_AFTER4PRICEBABY = 15000;
@@ -22,10 +22,9 @@ int main(){
 	
 	todayMonth = t->tm_mon+1;
 	todayDay = t->tm_mday;
-	today = todayMonth + todayDay;
-	
+		
 	printf("%d\n", thisYear);
-	printf("%d %d %d\n", todayMonth, todayDay, today);
+	printf("%d %d\n", todayMonth, todayDay);
 	
 		
 	do {																			//입력 반복// 
@@ -50,8 +49,11 @@ int main(){
 	} while ( inputTicket > 2 || inputTicketDetail > 2 || inputBirth%10 > 5 || inputAmount > 10 || inputPremier > 7 );
 	
 	//나이 계산// 
-	ageNumber = inputBirth/100000; //주민번호 7자리를 10만으로 나누어 생년 정수형으로 변환 
-	birthDate = (inputBirth - (ageNumber*100000))/10; // (생년월일 7자리 - 정수형*10만) = (생일+주민 번호 7자리) / 10 => 생일 정수형
+	ageNumber = inputBirth/100000; //주민번호 7자리를 10만으로 나누어 생년 정수형으로 변환
+	birthDate = (inputBirth - (ageNumber*100000))/10; // (생년월일 7자리 - 정수형*10만) = (생일+주민 번호 7번째 자리) / 10 => 생일 정수형 1018+1 / 10 = 1018
+	birthMonth = (birthDate / 100); // 10월 18일 => 10
+	birthDay = birthDate - ((birthDate / 100) * 100); // 10월 18일 ==> 18 
+	
 	
 	if (inputBirth % 5 <= 2) { //주민번호 7자리를 5로 나눈 나머지 값이 2보다 작거나 같을경우 1,2 = 1900년대 생 
 		birthYear = (inputBirth / 100000)+ 1900;
@@ -70,12 +72,17 @@ int main(){
 		interAge  = yearGap;
 	}
 	
+	printf("%d\n", birthMonth);
+	printf("%d\n", birthDay); 
+	
 	/* 나이 계산 확인용 
 	printf("%d\n", ageNumber);
 	printf("%d\n", birthDate);
 	printf("%d\n", birthYear);
 	printf("%d\n", yearGap);	
-	printf("%d\n", interAge);  */
+	printf("%d\n", interAge); 
+	printf("%d\n", birthMonth);
+	printf("%d\n", birthDay); */
 
 	// --- //
 	
