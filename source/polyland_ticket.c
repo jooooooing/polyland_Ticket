@@ -266,35 +266,35 @@ int main(){
 	//장애인 우대 50% // 
 	else if (inputPremier == 2) {
 		premierPrice = resultPrice * 0.5;
-		printf("장애인 우대 50% \n");
+		printf("장애인 우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//국가유공자 우대 50% //
 	else if (inputPremier == 3) {
 		premierPrice = resultPrice * 0.5;
-		printf("국가유공자  우대 50% \n");
+		printf("국가유공자  우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//휴가장병  우대 49% //
 	else if (inputPremier == 4 && inputTicket==1) {
 		premierPrice = resultPrice * 0.5 + 500;
-		printf("휴가장병 우대 49% \n");
+		printf("휴가장병 우대 49%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//임산부  우대 50% //
 	else if (inputPremier == 5 && inputTicket==1) {
 		premierPrice = resultPrice * 0.5;
-		printf("임산부 우대 50% \n");
+		printf("임산부 우대 50%% \n");
 		printf("가격은 %d원 입니다.", premierPrice);
 	}
 	
 	//다둥이 행복카드 우대 30% //
 	else if (inputPremier == 6 && inputTicket==1) {
 		premierPrice = resultPrice * 0.7;
-		printf("다둥이 행복카드 본인 30% \n");
+		printf("다둥이 행복카드 본인 30%% \n");
 		printf("가격은 %d원 입니다.\n", premierPrice);
 	}
 	
@@ -310,15 +310,15 @@ int main(){
 	
 	if (reOrder == 2) {
 		printf("\n========================================= 발권  내역 =======================================\n");
-		printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s\n","이용권 종류","이용 시간","발권 수량","우대 구분","나이","입장료 총액");
-		printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s","(종합/파크)","(1Day/After4)"," (매) ","(1-6)","(세) ","(원)");
+		printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s\n","이용권 종류","이용 시간","발권 수량","우대 구분","고객구분","입장료 총액");
+		printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s","(종합/파크)","(1Day/After4)"," (매) ","(1-6)","(1~6) ","(원)");
 		printf("\n============================================================================================\n");
 		break;
 	}
 	
-	else {
-		row ++;
-	}
+	else { 
+		row ++; 
+	} 
 
 } for (int i=0;i<=row;i++){	
 		for (int j=0;j<6;j++){
