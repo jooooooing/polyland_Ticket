@@ -12,14 +12,17 @@ int main(){
 		// 배열 선언 //
 	int row = 0;
 	int reportArray[50000][6] = {0};
+	int restart; 
 	
 	// 변수 선언 //
+	
+	for(;;){
 	for(;;){
 	
 	int inputTicket, inputTicketDetail, inputBirth, inputAmount, inputPremier;
 	int resultPrice, premierPrice, reOrder;
-	int ageNumber, birthYear, birthDate, seventhDate, yearGap, interAge, birthMonth, birthDay, customerType;
-	int thisYear = t->tm_year + 1900, thisDate=316;
+	int ageNumber, birthYear, birthDate, seventhDate, yearGap, interAge, birthMonth, birthDay, customerType; 
+	int thisYear = t->tm_year + 1900;
 	const int FULL_1DAYPRICEADULT = 59000, FULL_1DAYPRICETEEN = 52000, FULL_1DAYPRICEKIDS = 47000, FULL_1DAYPRICEBABY = 15000;
 	const int FULL_AFTER4PRICEADULT = 48000, FULL_AFTER4PRICETEEN = 42000, FULL_AFTER4PRICEKIDS = 36000, FULL_AFTER4PRICEBABY = 15000;
 	const int PARK_1DAYPRICEADULT = 56000, PARK_1DAYPRICETEEN = 50000, PARK_1DAYPRICEKIDS = 46000, PARK_1DAYPRICEBABY = 15000;
@@ -235,7 +238,7 @@ int main(){
 			resultPrice = PARK_AFTER4PRICEBABY * inputAmount;
 			}
 		}
-	customerType = 5; //고객유형 4 = 어린이 : 만 0개월 이상 ~만 36개월 미만
+	customerType = 5; //고객유형 5 = 어린이 : 만 0개월 이상 ~만 36개월 미만
 	}
 	
 	reportArray[row][4] = customerType;
@@ -328,8 +331,20 @@ int main(){
 	}
 		
 
-printf("\n이용해주셔서 감사합니다.");
-	
+printf("\n이용해주셔서 감사합니다.\n");
+
+printf("\n계속 진행 (1:새로운 주문, 2: 프로그램 종료) : ");
+scanf("%d", &restart);
+
+if(restart == 2) {
+	printf("\n프로그램을 종료합니다."); 
+	break;
+}
+
+else {
+	printf("\n=========================================새로 발권=======================================");
+}
+}
 	return 0;
 
 }
