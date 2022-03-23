@@ -10,18 +10,17 @@ int main(){
 	t = localtime(&base);
 	printf ("\t\t\t\tToday : %d년 %d월 %d일\n ", t->tm_year + 1900, t->tm_mon+1, t->tm_mday);
 		// 배열 선언 //
-	int row = 0;
+	
 	int reportArray[50000][6] = {0};
 	int restart; 
 	
 	// 변수 선언 //
 	
 	for(;;){
-	for(;;){
-	
-	int inputTicket =0 , inputTicketDetail=0, inputBirth=0, inputAmount=0, inputPremier=0, inputBirthSix;
+	int row = 0;
+	int inputTicket =0 , inputTicketDetail=0, inputBirth=0, inputAmount=0, inputPremier=0;
 	int resultPrice=0, premierPrice=0, reOrder;
-	int ageNumber=0, birthYear=0, birthDate=0, seventhDate, yearGap, interAge, birthMonth, birthDay, customerType=0; 
+	int ageNumber=0, birthYear=0, birthDate=0, yearGap=0, interAge=0, birthMonth=0, birthDay=0, customerType=0; 
 	int thisYear = t->tm_year + 1900, todayDate = (t->tm_year + 1900)*10000 + (t->tm_mon+1)*100 + t->tm_mday; 
 	const int FULL_1DAYPRICEADULT = 59000, FULL_1DAYPRICETEEN = 52000, FULL_1DAYPRICEKIDS = 47000, FULL_1DAYPRICEBABY = 15000;
 	const int FULL_AFTER4PRICEADULT = 48000, FULL_AFTER4PRICETEEN = 42000, FULL_AFTER4PRICEKIDS = 36000, FULL_AFTER4PRICEBABY = 15000;
@@ -29,8 +28,9 @@ int main(){
 	const int PARK_AFTER4PRICEADULT = 45000, PARK_AFTER4PRICETEEN = 40000, PARK_AFTER4PRICEKIDS = 35000, PARK_AFTER4PRICEBABY = 15000;
 	char todayMonth, todayDay, today;
 	
-	printf ("\t\t\t\t  발권번호 %d-%d\n", todayDate, row+1);
 	
+	for(;;){
+		
 		// 이용권 종류 선택 //
 		do {	
 			printf("\nⅠ.티켓 종류를 입력하세요. \n 1. 종합이용권 \n 2. 파크이용권\n");
@@ -346,16 +346,12 @@ int main(){
 		printf("\n");
 	}
 	for (int i=0; i<=row; i++){
-		fprintf(filePointer, "%d, %d, %d, %d, %d, %d\n", reportArray[i][0], reportArray[i][1], reportArray[i][2], reportArray[i][3],
+		fprintf(filePointer, "%d%d%d, %d, %d, %d, %d, %d, %d\n", t->tm_year + 1900, t->tm_mon+1, t->tm_mday, reportArray[i][0], reportArray[i][1], reportArray[i][2], reportArray[i][3],
 															reportArray[i][4], reportArray[i][5]);	
 	}
 	
-		
-	
-		
 
 printf("\n이용해주셔서 감사합니다.\n");
-
 printf("\n계속 진행 (1:새로운 주문, 2: 프로그램 종료) : ");
 scanf("%d", &restart);
 
