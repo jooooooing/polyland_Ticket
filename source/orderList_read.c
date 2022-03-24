@@ -8,14 +8,8 @@ int main(){
 	//날짜, 이용권 종류, 이용 시간, 발권 수량, 우대 구분, 고객구분, 입장료 총액 //
 	
 	FILE *fp = fopen("report.csv", "r");
-	const int INITIAL_VALUE = 0, START = 0, MAX = 100;
+	const int MAX = 5000;
 
-	const int FULL = 1, PARK = 2; 	//권종 구분 //
-	const int ALLDAY = 1, AFTER4 = 2 ; //이용 시간 구분 //
-	const int NONE = 1, DISABLE = 2, MERIT = 3, SOLDIIER = 4, PREGNANT = 5, MULTICHILD = 6; //우대사항 구분/. 
-	const int OLD = 1, ADULT = 2, TEEN = 3, CHILD = 2, BABY = 1; //연령 구분// 
-	const int MIB_BABY =1, MIN_CHILD = 3, MIN_TEEN = 13, MIN_ADULT = 19, MAX_CHILD = 12, MAX_TEEN = 18, MAX_ADULT = 64;
-	
 	int row = 0;
 	int date[MAX], inputTicket[MAX] , inputTicketDetail[MAX], inputAmount[MAX], premierType[MAX], customerType[MAX], finalPrice[MAX];
 	
@@ -31,9 +25,7 @@ int main(){
 	for(int index = 0; index < row; index++) {
 		printf("%d\t %d\t %d\t %d\t %d\t %d\t %d\n", date[index], inputTicket[index] , inputTicketDetail[index], inputAmount[index], 
 															premierType[index], customerType[index], finalPrice[index]);
-															
-	
-															
+											
 	}
 	printf("=============================================================================================\n");
 	
