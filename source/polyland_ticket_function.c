@@ -1,29 +1,15 @@
 #include <stdio.h>
 #include <time.h>
-
-
-int main(){
-	
-	// 현재 날짜 구하기 // 
-	struct tm* t;
-	time_t base = time(NULL);
-	t = localtime(&base);
-		
-	printf ("\t\t\t\tToday : %d년 %d월 %d일\n ", t->tm_year + 1900, t->tm_mon+1, t->tm_mday);
-		// 배열 선언 //
-	
-	int reportArray[50000][6] = {0};
-	
-	
-			
 	// 변수 선언 //
 	
-	for(;;){
+	int reportArray[50000][6] = {0};
+	int thisYear;
+	
 	int row = 0;
 	int inputTicket =0 , inputTicketDetail=0, inputBirth=0, inputAmount=0, inputPremier=0;
 	int resultPrice=0, premierPrice=0, reOrder;
 	int ageNumber=0, birthYear=0, birthDate=0, yearGap=0, interAge=0, birthMonth=0, birthDay=0, customerType=0; 
-	int thisYear = t->tm_year + 1900, todayDate = (t->tm_year + 1900)*10000 + (t->tm_mon+1)*100 + t->tm_mday; 
+	 
 	const int FULL_1DAYPRICEADULT = 59000, FULL_1DAYPRICETEEN = 52000, FULL_1DAYPRICEKIDS = 47000, FULL_1DAYPRICEBABY = 15000;
 	const int FULL_AFTER4PRICEADULT = 48000, FULL_AFTER4PRICETEEN = 42000, FULL_AFTER4PRICEKIDS = 36000, FULL_AFTER4PRICEBABY = 15000;
 	const int PARK_1DAYPRICEADULT = 56000, PARK_1DAYPRICETEEN = 50000, PARK_1DAYPRICEKIDS = 46000, PARK_1DAYPRICEBABY = 15000;
@@ -31,11 +17,8 @@ int main(){
 	char todayMonth, todayDay, today;
 	
 	int restart; 
-	
-	
-	for(;;){
-		
-		// 이용권 종류 선택 //
+
+void selectTicket() {				// 이용권 종류 선택 //
 		do {	
 			printf("\nⅠ.티켓 종류를 입력하세요. \n 1. 종합이용권 \n 2. 파크이용권\n");
 			scanf("%d", &inputTicket);
@@ -43,9 +26,10 @@ int main(){
 			if ( inputTicket > 2){
 			printf ("입력이 잘못되었습니다. 다시 입력해주세요\n\n");
 			}
-		} while (inputTicket >2);
-		
-		// 종일권, After4 선택 // 
+	} 	while (inputTicket >2);
+}
+
+void selectTicketDetail(){			// 종일권, After4 선택 // 
 		do {
 			printf("\nⅡ.세부 티켓 종류를 입력하세요. \n 1. 1Day \n 2. After4\n");
 			scanf("%d", &inputTicketDetail);
@@ -53,8 +37,10 @@ int main(){
 			if ( inputTicketDetail > 2){
 			printf ("입력이 잘못되었습니다. 다시 입력해주세요\n\n");
 			} 
-		}while (inputTicketDetail >2);
-						
+	}	while (inputTicketDetail >2);
+}
+
+void inputIDNumber() {				// 주민 번호 입력 // 
 		do {
 			printf("\nⅢ.주민번호를 입력하세요(7자리까지)\n");
 			scanf("%d", &inputBirth);
@@ -65,20 +51,22 @@ int main(){
 			if ( inputBirth%10 >= 5 || inputBirth%10 ==0 || inputBirth <= 999999 || inputBirth >= 10000000 || birthDate > 1231 || birthDate < 101 || birthMonth > 12 || birthDay > 31){
 			printf ("입력이 잘못되었습니다. 다시 입력해주세요\n\n");
 			}
-		} while (inputBirth%10 >= 5 || inputBirth%10 ==0 || inputBirth <= 999999 || inputBirth >= 10000000 || birthDate > 1231 || birthDate < 101 || birthMonth > 12 || birthDay > 31);
-		
-		
-		do {
+	} while (inputBirth%10 >= 5 || inputBirth%10 ==0 || inputBirth <= 999999 || inputBirth >= 10000000 || birthDate > 1231 || birthDate < 101 || birthMonth > 12 || birthDay > 31);
+}
+	
+void ticketAmount() {				// 티켓 수량 입력 // 
+	do {
 			printf("\nⅣ.몇개를 주문하시겠습니까? (최대 10개)\n");
 			scanf("%d", &inputAmount);
 			
 			if ( inputAmount > 10 || inputAmount <1 ){
 			printf ("입력이 잘못되었습니다. 다시 입력해주세요\n");
 			}
-		} while (inputAmount > 10 || inputAmount <1);
-		
-		
-		
+	} while (inputAmount > 10 || inputAmount <1);
+	
+}
+
+void checkPremier(){				// 우대 입력 // 
 		do {
 			printf("\nⅤ.우대 사항을 선택하세요. \n 1. 없음(나이 우대는 자동처리) \n 2. 장애인\n 3. 국가유공자\n 4. 휴가장병\n 5. 임산부\n 6. 다둥이 행복카드\n");
 			scanf("%d", &inputPremier);
@@ -86,15 +74,16 @@ int main(){
 			if (inputPremier > 7){
 			printf ("입력이 잘못되었습니다. 다시 입력해주세요\n\n");
 			}
-		} while (inputPremier > 7);	
-		
-	
-		
-	//나이 계산// 
+		} while (inputPremier > 7);		
+}
 
+void countAge() {					// 나이 계산 // 
 	
-
+	struct tm* t;
+	time_t base = time(NULL);
+	t = localtime(&base);
 	
+	int thisYear = t->tm_year + 1900, todayDate = (t->tm_year + 1900)*10000 + (t->tm_mon+1)*100 + t->tm_mday;
 	if (inputBirth % 5 <= 2) { //주민번호 7자리를 5로 나눈 나머지 값이 2보다 작거나 같을경우 1,2 = 1900년대 생 
 		birthYear = (inputBirth / 100000)+ 1900;
 	}
@@ -120,8 +109,10 @@ int main(){
 	printf("%d\n", birthDay); 
 	printf("%d\n", yearGap);	
 	printf("%d\n", interAge); */
-    	
-	// 티켓 값 계산 //
+	
+}
+
+void countTicketFee() {				// 티켓값 계산 // 
 	// 만 65세 이상 // 	
 	if (interAge >= 65)	{
 		if(inputTicket == 1) {   											//종일 이용권 선택 // 
@@ -231,9 +222,10 @@ int main(){
 		}
 	customerType = 5; //고객유형 5 = 어린이 : 만 0개월 이상 ~만 36개월 미만
 	}
-		
-	// 우대 요금 적용 *동반1인은 미적용 //
-	//만 65세 이상 추가 우대 적용 불가// 
+}
+
+void countFinalPrice() {			// 우대요금 적용 // 
+		//만 65세 이상 추가 우대 적용 불가// 
 	if (interAge >= 65) {
 		premierPrice = resultPrice * 1;
 		printf("65세 이상으로 어린이요금 적용\n");
@@ -304,14 +296,9 @@ int main(){
 		}
 	}
 	
-	reportArray[row][0] = inputTicket;
-	reportArray[row][1] = inputTicketDetail;
-	reportArray[row][2] = inputAmount;
-	reportArray[row][3] = inputPremier;
-	reportArray[row][4] = customerType;
-	reportArray[row][5] = premierPrice;
-	
-	//개별 발권 결과 // 
+}
+
+void showResultTick() {
 	printf("\n========================================= 발권   결과 ======================================\n");
 	printf ("\n선택한 티켓 종류는 : %d\n", inputTicket);
 	printf ("선택한 세부티켓 종류는 : %d\n", inputTicketDetail);
@@ -321,9 +308,66 @@ int main(){
 	
 	printf("\n============================================================================================\n");	
 	
-	// 계속 예매 선택 //
-	printf("\n\n이어서 발권하시겠습니까? \n 1.예\n 2.아니요\n");
-	scanf("%d", &reOrder); 
+}
+
+void showResultFinal() {
+	
+}
+
+int main(){
+	
+	// 현재 날짜 구하기 // 
+	struct tm* t;
+	time_t base = time(NULL);
+	t = localtime(&base);
+		
+	printf ("\t\t\t\tToday : %d년 %d월 %d일\n ", t->tm_year + 1900, t->tm_mon+1, t->tm_mday);
+	// 배열 선언 //
+	int reportArray[50000][6] = {0};
+	int thisYear = t->tm_year + 1900, todayDate = (t->tm_year + 1900)*10000 + (t->tm_mon+1)*100 + t->tm_mday;
+	
+	for(;;){ // 1팀 발권 종료 후 재시작 // 
+		
+	for(;;){
+		// 이용권 종류 선택 //
+		selectTicket();
+		
+		// 종일권, After4 선택 // 
+		selectTicketDetail();
+		
+		//주민 번호 입력 // 
+		inputIDNumber();
+		
+		//수량 입력//
+		ticketAmount();
+		
+		//우대 입력//
+		checkPremier();			
+		
+		//나이 계산// 
+		countAge();
+		    	
+		// 티켓 값 계산 //
+		countTicketFee();
+		
+		// 우대 요금 적용 *동반1인 요금은 현재 미적용 //
+		countFinalPrice();
+	
+	
+		//배열 입력// 
+		reportArray[row][0] = inputTicket;
+		reportArray[row][1] = inputTicketDetail;
+		reportArray[row][2] = inputAmount;
+		reportArray[row][3] = inputPremier;
+		reportArray[row][4] = customerType;
+		reportArray[row][5] = premierPrice;
+	
+		//개별 발권 결과// 
+		showResultTick();
+		
+		// 계속 예매 선택 //
+		printf("\n\n이어서 발권하시겠습니까? \n 1.예\n 2.아니요\n");
+		scanf("%d", &reOrder); 
 			
 	if (reOrder == 2) {
 		
@@ -333,10 +377,12 @@ int main(){
 	else { 
 		row ++; 
 	} 
-
+		
 } 
 	
+	
 	FILE *filePointer = fopen("report.csv", "a");
+			
 	printf("\n========================================= 발권  내역 =======================================\n");
 	printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s\n","이용권 종류","이용 시간","발권 수량","우대 구분","고객구분","입장료 총액");
 	printf("%10s\t%10s\t%10s\t%10s\t%10s\t%10s","(종합/파크)","(1Day/After4)"," (매) ","(1-6)","(1~6) ","(원)");

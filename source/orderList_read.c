@@ -20,7 +20,7 @@ int main(){
 	int date[MAX], inputTicket[MAX] , inputTicketDetail[MAX], inputAmount[MAX], premierType[MAX], customerType[MAX], finalPrice[MAX];
 	
 	printf("\n========================================= report.csv =======================================\n");
-	printf ("%5s, %5s, %5s, %5s, %5s, %5s, %5s\n", "날짜","권종","시간","수량","우대사항","고객분류","금액"); 
+	printf ("%s,\t %s,\t %s,\t %s,\t %s,\t %s,\t %s\t\n", "날짜","권종","시간","수량","우대사항","고객분류","금액"); 
 	while( fscanf(fp, "%d, %d, %d, %d, %d, %d, %d\n", &date[row], &inputTicket [row] , &inputTicketDetail[row], &inputAmount[row], 
 															&premierType[row], &customerType[row], &finalPrice[row]) != -1) {
 			row ++;													
