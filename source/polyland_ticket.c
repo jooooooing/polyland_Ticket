@@ -8,12 +8,14 @@ int main(){
 	struct tm* t;
 	time_t base = time(NULL);
 	t = localtime(&base);
+		
 	printf ("\t\t\t\tToday : %d년 %d월 %d일\n ", t->tm_year + 1900, t->tm_mon+1, t->tm_mday);
 		// 배열 선언 //
 	
 	int reportArray[50000][6] = {0};
 	int restart; 
-	
+	int todayDate = (t->tm_year + 1900) * 10000 + (t->tm_mon+1) * 100 + t->tm_mday;
+			
 	// 변수 선언 //
 	
 	for(;;){
@@ -346,7 +348,7 @@ int main(){
 		printf("\n");
 	}
 	for (int i=0; i<=row; i++){
-		fprintf(filePointer, "%d%d%d, %d, %d, %d, %d, %d, %d\n", t->tm_year + 1900, t->tm_mon+1, t->tm_mday, reportArray[i][0], reportArray[i][1], reportArray[i][2], reportArray[i][3],
+		fprintf(filePointer, "%d, %d, %d, %d, %d, %d, %d\n", todayDate, reportArray[i][0], reportArray[i][1], reportArray[i][2], reportArray[i][3],
 															reportArray[i][4], reportArray[i][5]);	
 	}
 	
